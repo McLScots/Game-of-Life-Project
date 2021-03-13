@@ -11,8 +11,8 @@ public class RunMVC {
 	public RunMVC() {
 
 		//create Model and View
-		Model myModel 	= new Model();
-		View myView 	= new View();
+		MVCModel myModel 	= new Model();
+		MVCView myView 	= new View();
 
 		//tell Model about View. 
 		myModel.addObserver(myView);

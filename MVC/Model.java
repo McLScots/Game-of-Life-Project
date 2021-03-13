@@ -7,7 +7,7 @@
 //Model is an Observable
 //Model doesn't know about View or Controller
 
-public class Model extends java.util.Observable {	
+public class Model extends MVCModel {
 	
 	private int counter;	//primitive, automatically initialised to 0
 
@@ -54,6 +54,7 @@ public class Model extends java.util.Observable {
 	//myView then runs update()
 	//
 	//model Push - send counter as part of the message
+	@Override
 	public void setValue(int value) {
 
 		this.counter = value;
@@ -66,6 +67,7 @@ public class Model extends java.util.Observable {
 
 	} //setValue()
 	
+	@Override
 	public void incrementValue() {
 
 		++counter;
