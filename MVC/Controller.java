@@ -8,8 +8,8 @@
 class Controller implements java.awt.event.ActionListener {
 
 	//Joe: Controller has Model and View hardwired in
-	Model model;
-	View view;
+	MVCModel model;
+	MVCView view;
 
 	Controller() {	
 		System.out.println ("Controller()");
@@ -29,12 +29,12 @@ class Controller implements java.awt.event.ActionListener {
 
 	//Joe I should be able to add any model/view with the correct API
 	//but here I can only add Model/View
-	public void addModel(Model m){
+	public void addModel(MVCModel m){
 		System.out.println("Controller: adding model");
 		this.model = m;
 	} //addModel()
 
-	public void addView(View v){
+	public void addView(MVCView v){
 		System.out.println("Controller: adding view");
 		this.view = v;
 	} //addView()
