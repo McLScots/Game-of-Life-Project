@@ -7,6 +7,8 @@
 //Model is an Observable
 //Model doesn't know about View or Controller
 
+import javax.swing.*;
+
 public class Model extends MVCModel {
 	
 	private int counter;	//primitive, automatically initialised to 0
@@ -79,5 +81,25 @@ public class Model extends MVCModel {
 		//notifyObservers()
 
 	} //incrementValue()
-	
+
+	@Override
+	void pause() {
+
+	}
+
+	@Override
+	void resume() {
+
+	}
+
+	@Override
+	void reset() {
+
+	}
+
+	@Override
+	void changeState(JLabel cell, int x, int y) {
+
+	}
+
 } //Model

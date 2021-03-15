@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;	//for addController()
 class View implements MVCView {
 
 	//attributes as must be visible within class
-	private Button Start, Stop, Reset;
+	private JButton Start, Stop, Reset;
 	private JLabel Image, Tittle;
 	private JPanel container;
 	private JScrollPane scroll;
@@ -33,9 +33,9 @@ class View implements MVCView {
 		Frame frame 	= new Frame("Game of Life");
 		Image 	 = new JLabel();
 		Tittle	 = new JLabel("Game of Life");
-		Start	 = new Button("Start");
-		Stop	 = new Button("Stop");
-		Reset	 = new Button("Reset");
+		Start	 = new JButton("Start");
+		Stop	 = new JButton("Stop");
+		Reset	 = new JButton("Reset");
 		container= new JPanel();
 		scroll	 = new JScrollPane(container);
 
@@ -83,9 +83,8 @@ class View implements MVCView {
 
 	@Override
 	public void createCells() {
-		int i;
 		cells = new JLabel[100][200];
-		for (i = 0; i < 100; i++) {
+		for (int i = 0; i < 100; i++) {
 			for (int j = 0; j < cells.length; j++) {
 				//cells[i][j] = new JLabel(i+"");
 				cells[i][j] = new JLabel();
