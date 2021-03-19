@@ -82,24 +82,4 @@ public class Model extends MVCModel {
 
 	} //incrementValue()
 
-	@Override
-	void pause() {
-
-	}
-
-	@Override
-	void resume() {
-
-	}
-
-	@Override
-	void reset() {
-
-	}
-
-	@Override
-	void changeState(JLabel cell, int x, int y) {
-
-	}
-
 } //Model

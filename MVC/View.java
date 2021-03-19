@@ -7,9 +7,11 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;	//for CloseListener()
 import java.awt.event.WindowAdapter;	//for CloseListener()
 import java.lang.Integer;		//int from Model is passed as an Integer
+import java.time.Clock;
 import java.util.Observable;		//for update();
 import java.awt.event.ActionListener;	//for addController()
 
@@ -18,10 +20,10 @@ class View implements MVCView {
 
 	//attributes as must be visible within class
 	private JButton Start, Stop, Reset;
-	private JLabel Image, Tittle;
-	private JPanel container;
-	private JScrollPane scroll;
-	private JLabel[][] cells;
+	private JLabel Image, Tittle, LivingC, Clock, Time, CellN;
+	private JPanel Container;
+	private JScrollPane Scroll;
+	private Cell[][] Cells;
 
 	//private Model model;		//Joe: Model is hardwired in, 
 					//needed only if view initialises model (which we aren't doing)
@@ -33,18 +35,36 @@ class View implements MVCView {
 		Frame frame 	= new Frame("Game of Life");
 		Image 	 = new JLabel();
 		Tittle	 = new JLabel("Game of Life");
+		LivingC	 = new JLabel("Cells:");
+		Clock	 = new JLabel("000");
+		Time	 = new JLabel("Time:");
+		CellN	 = new JLabel("0");
 		Start	 = new JButton("Start");
 		Stop	 = new JButton("Stop");
 		Reset	 = new JButton("Reset");
-		container= new JPanel();
-		scroll	 = new JScrollPane(container);
+		Container= new JPanel();
+		Scroll	 = new JScrollPane(Container);
 
+		//JLabels
 		Image.setIcon(new ImageIcon("Life.jpg"));
 		Image.setSize(1280,100);
 		Image.setLocation(0,0);
 		Tittle.setFont(new Font(Tittle.getName(), Font.PLAIN, 20));
 		Tittle.setSize(200,150);
 		Tittle.setLocation(15,5);
+		LivingC.setFont(new Font(LivingC.getName(), Font.PLAIN, 25));
+		LivingC.setSize(100,50);
+		LivingC.setLocation(1100,17);
+		Time.setFont(new Font(Clock.getName(), Font.PLAIN, 25));
+		Time.setSize(100,50);
+		Time.setLocation(1100,50);
+		Clock.setFont(new Font(Clock.getName(), Font.PLAIN, 25));
+		Clock.setSize(50,50);
+		Clock.setLocation(1170,50);
+		CellN.setFont(new Font(LivingC.getName(), Font.PLAIN, 25));
+		CellN.setSize(50,50);
+		CellN.setLocation(1170,17);
+		//JButtons
 		Start.setSize(100,50);
 		Start.setLocation(490,630);
 		Start.setForeground(Color.WHITE); //Text color
@@ -53,23 +73,28 @@ class View implements MVCView {
 		Stop.setLocation(600,630);
 		Reset.setSize(100,50);
 		Reset.setLocation(380,630);
-		container.setLayout(new GridLayout(100, 200));
-		scroll.setSize(1270,520);
-		scroll.setLocation(6,100);
-		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		//Others
+		Container.setLayout(new GridLayout(100, 200));
+		Scroll.setSize(1270,520);
+		Scroll.setLocation(6,100);
+		Scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
 		createCells();
 
-		container.revalidate();
-		container.repaint();
+		Container.revalidate();
+		Container.repaint();
 
 		frame.setLayout(null);
 		frame.add(Tittle);
+		frame.add(LivingC);
+		frame.add(CellN);
+		frame.add(Clock);
+		frame.add(Time);
 		frame.add(Image);
 		frame.add(Start);
 		frame.add(Stop);
 		frame.add(Reset);
-		frame.add(scroll);
+		frame.add(Scroll);
 
 
 		frame.setBackground(Color.GRAY);
@@ -83,16 +108,11 @@ class View implements MVCView {
 
 	@Override
 	public void createCells() {
-		cells = new JLabel[100][200];
+		Cells = new Cell[100][200];
 		for (int i = 0; i < 100; i++) {
-			for (int j = 0; j < cells.length; j++) {
-				//cells[i][j] = new JLabel(i+"");
-				cells[i][j] = new JLabel();
-				cells[i][j].setOpaque(true);
-				cells[i][j].setBackground(Color.white);
-				cells[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-				cells[i][j].setPreferredSize(new Dimension(20, 20));
-				container.add(cells[i][j]);
+			for (int j = 0; j < Cells.length; j++) {
+				Cells[i][j] = new Cell();
+				Container.add(Cells[i][j]);
 			}
 		} // End for
 	}
@@ -116,11 +136,22 @@ class View implements MVCView {
 
     	} //update()
 
-	@Override
-	public void addController(ActionListener controller){
-		System.out.println("View      : adding controller");
-		Start.addActionListener(controller);	//need instance of controller before can add it as a listener
-	} //addController()
+	public void addPause(ActionListener e){
+		Stop.addActionListener(e);
+	}
+
+	public void addReset(ActionListener e){
+		Reset.addActionListener(e);
+	}
+
+	public void addCell(MouseListener e){
+		for (int i = 0; i < 100; i++) {
+			for (int j = 0; j < Cells.length; j++) {
+				Cells[i][j].addMouseListener(e);
+			}
+		}
+	}
+
 
 	//to initialise TextField
 

@@ -1,4 +1,5 @@
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.Observable;
 
 public interface MVCView extends java.util.Observer {
@@ -8,6 +9,9 @@ public interface MVCView extends java.util.Observer {
     void update(Observable obs, Object obj) //update()
     ;
 
-    void addController(ActionListener controller) //addController()
-    ;
+    void addPause(ActionListener pauseListener);
+
+    void addReset(ActionListener resetListener);
+
+    void addCell(MouseListener cellListener);
 }
