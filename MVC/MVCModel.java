@@ -11,16 +11,4 @@ public abstract class MVCModel extends  java.util.Observable{
 
     abstract void incrementValue() //incrementValue()
     ;
-
-    abstract void pause()
-        ;
-
-    abstract void resume()
-        ;
-
-    abstract void reset()
-        ;
-
-    abstract void changeState(JLabel cell, int x, int y)
-        ;
 }

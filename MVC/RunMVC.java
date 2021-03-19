@@ -11,7 +11,7 @@ public class RunMVC {
 	public RunMVC() {
 
 		//create Model and View
-		MVCModel myModel 	= new Model();
+		MVCModel myModel = new Model();
 		MVCView myView 	= new View();
 
 		//tell Model about View. 
@@ -25,13 +25,12 @@ public class RunMVC {
 		//myModel.setValue(start_value);	
 
 		//create Controller. tell it about Model and View, initialise model
-		Controller myController = new Controller();
-		myController.addModel(myModel);
-		myController.addView(myView);
-		myController.initModel(start_value);
+		NewController myController = new NewController(myModel, myView);
 
-		//tell View about Controller 
-		myView.addController(myController);
+		//tell View about Controller
+		myView.addPause(myController.getPauseListener());
+		myView.addReset(myController.getResetListener());
+		myView.addCell(myController.getCellListener());
 		//and Model, 
 		//this was only needed when the view inits the model
 		//myView.addModel(myModel);
