@@ -64,16 +64,6 @@ public class Model extends MVCModel {
 	//
 	//model Push - send counter as part of the message
 
-	// loop simStep
-	public void gameLoop(){
-		long lastStepTime = System.currentTimeMillis();
-		while (true) {
-			if ((System.currentTimeMillis()-lastStepTime)/1000 >= 1){
-				simStep();
-				lastStepTime = System.currentTimeMillis();
-			}
-		}
-	}
 
 	//one step in the simulation
 	//game rules & stuff go here

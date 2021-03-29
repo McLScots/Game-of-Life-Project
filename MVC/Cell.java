@@ -20,4 +20,8 @@ public class Cell extends JLabel {
             this.setBackground(Color.WHITE);
         }
     }
+
+    public boolean getState(){
+        return flag;
+    }
 }

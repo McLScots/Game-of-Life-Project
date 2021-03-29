@@ -6,6 +6,8 @@ public class Main{
 
 		RunMVC mainRunMVC = new RunMVC();
 
+		ModelTesting mainModelTesting = new ModelTesting();
+
 	} //main()
 
 } //Main
