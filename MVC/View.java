@@ -92,7 +92,7 @@ class View implements MVCView {
 		frame.add(Time);
 		frame.add(Image);
 		frame.add(Start);
-		frame.add(Stop);
+		//frame.add(Stop);
 		frame.add(Reset);
 		frame.add(Scroll);
 
@@ -137,7 +137,7 @@ class View implements MVCView {
     	} //update()
 
 	public void addPause(ActionListener e){
-		Stop.addActionListener(e);
+		Start.addActionListener(e);
 	}
 
 	public void addReset(ActionListener e){
