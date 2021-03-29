@@ -41,6 +41,10 @@ public class NewController {
 
         @Override
         public void mousePressed(MouseEvent e) {
+            Object obj = e.getSource();
+            if (obj instanceof Cell) {
+                Cell cb = (Cell) obj;
+            }
             System.out.println("cell");
         }
 
