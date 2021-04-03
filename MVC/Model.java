@@ -155,4 +155,11 @@ public class Model extends MVCModel {
 
 	} //incrementValue()
 
+	public void turnOn(Cell c){
+		c.changeState();
+		setChanged();
+		System.out.println(c.getState());
+		notifyObservers();
+	}
+
 } //Model
