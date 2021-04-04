@@ -125,7 +125,7 @@ class View implements MVCView {
 	// Called from the Model
     	@Override
 		public void update(Observable obs, Object obj) {
-
+			this.Clock.setText(""+this.model.getTime());
 		//who called us and what did they send?
 		//System.out.println ("View      : Observable is " + obs.getClass() + ", object passed is " + obj.getClass());
 
@@ -157,10 +157,15 @@ class View implements MVCView {
 		}
 	}
 
-	public void timeHandler(ActionListener e){
+	public void addTime(ActionListener e){
 		time.addActionListener(e);
 	}
 
+	//@Override
+	//public void registerModel(MVCModel model) {
+	//	this.model = model;
+	//	this.model.addObserver(this);
+	//}
 
 
 	//to initialise TextField

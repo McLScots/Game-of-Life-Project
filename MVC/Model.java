@@ -14,7 +14,7 @@ public class Model extends MVCModel {
 	private int counter;	//primitive, automatically initialised to 0
 	// array for storing cell states
 	public boolean arr[][] = new boolean[100][200];
-	long startTime = System.currentTimeMillis();
+	public long startTime = System.currentTimeMillis();
 
 	public Model(){
 
@@ -154,6 +154,11 @@ public class Model extends MVCModel {
 		//notifyObservers()
 
 	} //incrementValue()
+
+	@Override
+	long getTime() {
+		return startTime;
+	}
 
 	public void turnOn(Cell c){
 		c.changeState();
