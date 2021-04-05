@@ -7,13 +7,10 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;	//for CloseListener()
-import java.awt.event.WindowAdapter;	//for CloseListener()
+import java.awt.event.*;
 import java.lang.Integer;		//int from Model is passed as an Integer
 import java.time.Clock;
 import java.util.Observable;		//for update();
-import java.awt.event.ActionListener;	//for addController()
 
 
 class View implements MVCView {
@@ -24,6 +21,8 @@ class View implements MVCView {
 	private JPanel Container;
 	private JScrollPane Scroll;
 	private Cell[][] Cells;
+	private Timer time;
+	private MVCModel model;
 
 	//private Model model;		//Joe: Model is hardwired in, 
 					//needed only if view initialises model (which we aren't doing)
@@ -44,6 +43,12 @@ class View implements MVCView {
 		Reset	 = new JButton("Reset");
 		Container= new JPanel();
 		Scroll	 = new JScrollPane(Container);
+		time 	 = new Timer(1000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
 
 		//JLabels
 		Image.setIcon(new ImageIcon("Life.jpg"));
@@ -120,7 +125,7 @@ class View implements MVCView {
 	// Called from the Model
     	@Override
 		public void update(Observable obs, Object obj) {
-
+			this.Clock.setText(""+this.model.getTime());
 		//who called us and what did they send?
 		//System.out.println ("View      : Observable is " + obs.getClass() + ", object passed is " + obj.getClass());
 
@@ -151,6 +156,16 @@ class View implements MVCView {
 			}
 		}
 	}
+
+	public void addTime(ActionListener e){
+		time.addActionListener(e);
+	}
+
+	//@Override
+	//public void registerModel(MVCModel model) {
+	//	this.model = model;
+	//	this.model.addObserver(this);
+	//}
 
 
 	//to initialise TextField

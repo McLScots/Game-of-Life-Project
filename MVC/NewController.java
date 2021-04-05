@@ -7,6 +7,8 @@ public class NewController {
     private PauseListener pause;
     private ResetListener reset;
     private CellListener cell;
+    private TimerListener time;
+    private Cell ce;
 
     public NewController(MVCModel model, MVCView view) {
         this.myModel = model;
@@ -14,10 +16,7 @@ public class NewController {
         this.pause = new PauseListener();
         this.reset = new ResetListener();
         this.cell = new CellListener();
-
-        //view.PauseAction(new PauseListener());
-        //view.ResetAction(new ResetListener());
-        //view.CellAction(new CellListener());
+        this.time = new TimerListener();
     }
 
     class PauseListener implements ActionListener {
@@ -29,6 +28,11 @@ public class NewController {
     class ResetListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             System.out.println("Reset");
+        }
+    }
+    class TimerListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Time");
         }
     }
 
@@ -43,8 +47,9 @@ public class NewController {
         public void mousePressed(MouseEvent e) {
             Object obj = e.getSource();
             if (obj instanceof Cell) {
-                Cell cb = (Cell) obj;
+                ce = (Cell) obj;
             }
+            //myModel.turnOn(ce);
             System.out.println("cell");
         }
 
@@ -75,6 +80,8 @@ public class NewController {
     public MouseListener getCellListener(){
         return this.cell;
     }
+
+    public ActionListener getTimeListener(){ return this.time; }
 
     public void addModel(MVCModel m){
         System.out.println("Controller: adding model");
