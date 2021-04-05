@@ -11,6 +11,4 @@ public abstract class MVCModel extends  java.util.Observable{
 
     abstract void incrementValue() //incrementValue()
     ;
-    abstract long getTime();
-    abstract void turnOn(Cell c);
 }

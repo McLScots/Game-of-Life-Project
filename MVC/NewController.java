@@ -49,7 +49,7 @@ public class NewController {
             if (obj instanceof Cell) {
                 ce = (Cell) obj;
             }
-            myModel.turnOn(ce);
+            //myModel.turnOn(ce);
             System.out.println("cell");
         }
 
