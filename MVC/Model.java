@@ -71,16 +71,18 @@ public class Model extends MVCModel {
 		int neighborCount[][] = new int[100][200];
 
 		//loop over each cell and count its alive neighbors
-		for (int row = 0; row < arr.length; row++) {
-			for (int col = 0; col < arr[row].length; col++){
+		for (int row = 0; row < 100; row++) {
+			for (int col = 0; col < 200; col++){
 				int aliveCount = 0;
 
 				//instead of writing 8 if conditions, loop through the neighbors
 				for (int y = 0; y < 3; y++) {
 					for (int x = 0; x < 3; x++) {
 						// if x & y are 1 then it is itself
-						if (x != 1 && y != 1 && arr[row+y-1][col+x-1]) {
-							aliveCount += 1;
+						if ((col+x-1 > 0 && row+y-1 > 0) && (col+x-1 < 200 && row+y-1 < 100)){
+							if (x != 1 && y != 1 && arr[row+y-1][col+x-1]) {
+								aliveCount += 1;
+							}
 						}
 					}
 				}
