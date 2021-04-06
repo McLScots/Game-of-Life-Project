@@ -11,7 +11,7 @@ public class ModelTesting {
 
 
     public void testCell(){
-         testCell = new Cell();
+         testCell = new Cell(0,0);
          this.testCell.changeState();
          if (testCell.getState()) {
              System.out.println("Cell test passed");
@@ -22,7 +22,7 @@ public class ModelTesting {
         testModel = new Model();
         testModel.arr[1][2] = true;
         testModel.resetCells();
-        if (testModel.arr[1][2] == false){
+        if (!testModel.arr[1][2]){
             System.out.println("Reset test passed");
         }
     }
@@ -33,14 +33,15 @@ public class ModelTesting {
 
     public void testSimStep(){
         testModel = new Model();
+        testModel.arr[1][1] = true;
         testModel.arr[1][2] = true;
-        testModel.arr[1][3] = true;
+        testModel.arr[2][1] = true;
         testModel.arr[2][2] = true;
         testModel.simStep();
         int counter = 0;
         for (int row = 0; row < 100; row++) {
             for (int col = 0; col < 200; col++) {
-                if (testModel.arr[row][col] == true){
+                if (testModel.arr[row][col]){
                     counter++;
                 }
             }

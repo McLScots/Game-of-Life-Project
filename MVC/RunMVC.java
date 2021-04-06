@@ -14,6 +14,8 @@ public class RunMVC {
 		MVCModel myModel = new Model();
 		MVCView myView 	= new View();
 
+		myView.registerModel(myModel);
+
 		//tell Model about View. 
 		myModel.addObserver(myView);
 		/*	

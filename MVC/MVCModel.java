@@ -16,4 +16,8 @@ public abstract class MVCModel extends  java.util.Observable{
             ;
 
     abstract void simStep();
+
+    abstract void toggleCell(int x,int y);
+
+    abstract boolean getState(int x,int y);
 }

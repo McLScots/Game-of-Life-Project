@@ -68,7 +68,8 @@ public class Model extends MVCModel {
 	//one step in the simulation
 	//game rules & stuff go here
 	public void simStep(){
-		int neighborCount[][] = new int[100][200];
+		System.out.println("sim step");
+		int[][] neighborCount = new int[100][200];
 
 		//loop over each cell and count its alive neighbors
 		for (int row = 0; row < 100; row++) {
@@ -76,11 +77,11 @@ public class Model extends MVCModel {
 				int aliveCount = 0;
 
 				//instead of writing 8 if conditions, loop through the neighbors
-				for (int y = 0; y < 3; y++) {
-					for (int x = 0; x < 3; x++) {
-						// if x & y are 1 then it is itself
-						if ((col+x-1 > 0 && row+y-1 > 0) && (col+x-1 < 200 && row+y-1 < 100)){
-							if (x != 1 && y != 1 && arr[row+y-1][col+x-1]) {
+				for (int y = row-1; y <= row+1; y++) {
+					for (int x = col-1; x <= col+1; x++) {
+						// if x & y are col & row then it is itself
+						if ((x > 0 && y > 0) && (x < 200 && y < 100)){
+							if (!(x==col && y==row) && arr[y][x]) {
 								aliveCount += 1;
 							}
 						}
@@ -94,24 +95,25 @@ public class Model extends MVCModel {
 		//loop over each cell and update its status based on the rules & alive neighbors
 		for (int row = 0; row < arr.length; row++) {
 			for (int col = 0; col < arr[row].length; col++) {
-				//if alive neighbors less than 2, then dead
-				if (neighborCount[row][col] < 2) {
-					arr[row][col] = false;
-				}
-				//if alive neighbors 2 or 3, then alive
-				else if (neighborCount[row][col] == 2 || neighborCount[row][col] == 3){
+				if (arr[row][col] && neighborCount[row][col] > 1 && neighborCount[row][col] < 4) {
 					arr[row][col] = true;
+					//System.out.println("stay alive");
 				}
-				//if alive neighbors more than 3, then dead
+				else if (!arr[row][col] && neighborCount[row][col] == 3) {
+					arr[row][col] = true;
+					//System.out.println("become alive");
+				}
 				else {
 					arr[row][col] = false;
+
 				}
 			}
 		}
+		notifyObservers();
 	}
 
-	public void fillCell(int x, int y) {
-		if (arr[x][y] == false) {
+	public void toggleCell(int x, int y) {
+		if (!arr[x][y]) {
 			arr[x][y] = true;
 		}
 		else {
@@ -129,6 +131,10 @@ public class Model extends MVCModel {
 	public long getDuration(){
 		long elapsedTime = (System.currentTimeMillis() - startTime)/1000;
 		return elapsedTime;
+	}
+
+	public boolean getState(int x,int y){
+		return arr[x][y];
 	}
 
 	@Override
