@@ -1,4 +1,6 @@
 import java.awt.event.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class NewController {
     private MVCModel myModel;
@@ -9,6 +11,8 @@ public class NewController {
     private CellListener cell;
     private TimerListener time;
     private Cell ce;
+    private boolean simOn;
+    private Timer timer;
 
     public NewController(MVCModel model, MVCView view) {
         this.myModel = model;
@@ -17,13 +21,24 @@ public class NewController {
         this.reset = new ResetListener();
         this.cell = new CellListener();
         this.time = new TimerListener();
+        this.simOn = false;
+        timer = new Timer();
     }
 
     class PauseListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             System.out.println("Pause/Start");
-            myModel.simStep();
-            myView.updateCells();
+            if (!simOn){
+                timer = new Timer();
+                timer.schedule(new TimerTaskSimulate(),0,500);
+                simOn = true;
+                myView.simOn(true);
+            }
+            else {
+                timer.cancel();
+                simOn = false;
+                myView.simOn(false);
+            }
         }
     }
 
@@ -74,6 +89,14 @@ public class NewController {
         @Override
         public void mouseExited(MouseEvent e) {
 
+        }
+    }
+
+    public class TimerTaskSimulate extends TimerTask {
+        @Override
+        public void run() {
+            myModel.simStep();
+            myView.updateCells();
         }
     }
 

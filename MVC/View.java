@@ -133,6 +133,15 @@ class View implements MVCView {
 		}
 	}
 
+	public void simOn(boolean status){
+		if (status) {
+			Start.setText("Pause");
+		}
+		else{
+			Start.setText("Start");
+		}
+	}
+
 	// Called from the Model
 	@Override
 	public void update(Observable obs, Object obj) {
