@@ -22,4 +22,6 @@ public interface MVCView extends java.util.Observer {
     void registerModel(MVCModel model);
 
     void updateCells();
+
+    void simOn(boolean status);
 }
