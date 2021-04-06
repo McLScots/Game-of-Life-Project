@@ -169,12 +169,12 @@ class View implements MVCView {
 		}
 	}
 
-	public void toggleCell(int x,int y){
-		Cells[x][y].changeState();
-	}
-
 	public void addTime(ActionListener e){
 		time.addActionListener(e);
+	}
+
+	public void toggleCell(int x,int y){
+		Cells[x][y].changeState();
 	}
 
 	@Override
