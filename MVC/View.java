@@ -115,17 +115,29 @@ class View implements MVCView {
 	public void createCells() {
 		Cells = new Cell[100][200];
 		for (int i = 0; i < 100; i++) {
-			for (int j = 0; j < Cells.length; j++) {
-				Cells[i][j] = new Cell();
+			for (int j = 0; j < 200; j++) {
+				Cells[i][j] = new Cell(i,j);
 				Container.add(Cells[i][j]);
 			}
 		} // End for
 	}
 
+	public void updateCells(){
+		System.out.println("update");
+		for (int i = 0; i < 100; i++) {
+			for (int j = 0; j < 200; j++) {
+				if (Cells[i][j].getState() != model.getState(i,j)){
+					Cells[i][j].changeState();
+				}
+			}
+		}
+	}
+
 	// Called from the Model
-    	@Override
-		public void update(Observable obs, Object obj) {
-			this.Clock.setText(""+this.model.getTime());
+	@Override
+	public void update(Observable obs, Object obj) {
+
+		//this.Clock.setText(""+this.model.getTime());
 		//who called us and what did they send?
 		//System.out.println ("View      : Observable is " + obs.getClass() + ", object passed is " + obj.getClass());
 
@@ -157,15 +169,19 @@ class View implements MVCView {
 		}
 	}
 
+	public void toggleCell(int x,int y){
+		Cells[x][y].changeState();
+	}
+
 	public void addTime(ActionListener e){
 		time.addActionListener(e);
 	}
 
-	//@Override
-	//public void registerModel(MVCModel model) {
-	//	this.model = model;
-	//	this.model.addObserver(this);
-	//}
+	@Override
+	public void registerModel(MVCModel model) {
+		this.model = model;
+		this.model.addObserver(this);
+	}
 
 
 	//to initialise TextField

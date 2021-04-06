@@ -17,5 +17,9 @@ public interface MVCView extends java.util.Observer {
 
     void addTime(ActionListener e);
 
-    //void registerModel(MVCModel model);
+    void toggleCell(int x,int y);
+
+    void registerModel(MVCModel model);
+
+    void updateCells();
 }

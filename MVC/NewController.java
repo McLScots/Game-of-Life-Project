@@ -21,13 +21,17 @@ public class NewController {
 
     class PauseListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Pause");
+            System.out.println("Pause/Start");
+            myModel.simStep();
+            myView.updateCells();
         }
     }
 
     class ResetListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             System.out.println("Reset");
+            myModel.resetCells();
+            myView.updateCells();
         }
     }
     class TimerListener implements ActionListener {
@@ -48,6 +52,10 @@ public class NewController {
             Object obj = e.getSource();
             if (obj instanceof Cell) {
                 ce = (Cell) obj;
+                System.out.println("X: "+ce.x);
+                System.out.println("Y: "+ce.y);
+                myModel.toggleCell(ce.x,ce.y);
+                myView.toggleCell(ce.x,ce.y);
             }
             //myModel.turnOn(ce);
             System.out.println("cell");
