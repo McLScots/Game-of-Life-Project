@@ -16,13 +16,13 @@ import java.util.Observable;		//for update();
 class View implements MVCView {
 
 	//attributes as must be visible within class
-	private JButton Start, Stop, Reset;
+	private JButton Start, Reset;
 	private JLabel Image, Tittle, LivingC, Clock, Time, CellN;
 	private JPanel Container;
 	private JScrollPane Scroll;
 	private Cell[][] Cells;
-	private Timer time;
 	private MVCModel model;
+	private int NCells, Sec = 0;
 
 	//private Model model;		//Joe: Model is hardwired in, 
 					//needed only if view initialises model (which we aren't doing)
@@ -35,20 +35,13 @@ class View implements MVCView {
 		Image 	 = new JLabel();
 		Tittle	 = new JLabel("Game of Life");
 		LivingC	 = new JLabel("Cells:");
-		Clock	 = new JLabel("000");
+		Clock	 = new JLabel(""+Sec);
 		Time	 = new JLabel("Time:");
 		CellN	 = new JLabel("0");
 		Start	 = new JButton("Start");
-		Stop	 = new JButton("Stop");
 		Reset	 = new JButton("Reset");
 		Container= new JPanel();
 		Scroll	 = new JScrollPane(Container);
-		time 	 = new Timer(1000, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
 
 		//JLabels
 		Image.setIcon(new ImageIcon("Life.jpg"));
@@ -59,23 +52,21 @@ class View implements MVCView {
 		Tittle.setLocation(15,5);
 		LivingC.setFont(new Font(LivingC.getName(), Font.PLAIN, 25));
 		LivingC.setSize(100,50);
-		LivingC.setLocation(1100,17);
+		LivingC.setLocation(1100,20);
 		Time.setFont(new Font(Clock.getName(), Font.PLAIN, 25));
 		Time.setSize(100,50);
-		Time.setLocation(1100,50);
+		Time.setLocation(1100,53);
 		Clock.setFont(new Font(Clock.getName(), Font.PLAIN, 25));
 		Clock.setSize(50,50);
-		Clock.setLocation(1170,50);
+		Clock.setLocation(1170,53);
 		CellN.setFont(new Font(LivingC.getName(), Font.PLAIN, 25));
 		CellN.setSize(50,50);
-		CellN.setLocation(1170,17);
+		CellN.setLocation(1170,20);
 		//JButtons
 		Start.setSize(100,50);
 		Start.setLocation(490,630);
 		Start.setForeground(Color.WHITE); //Text color
 		Start.setBackground(Color.BLUE);  //Background color
-		Stop.setSize(100,50);
-		Stop.setLocation(600,630);
 		Reset.setSize(100,50);
 		Reset.setLocation(380,630);
 		//Others
@@ -97,7 +88,6 @@ class View implements MVCView {
 		frame.add(Time);
 		frame.add(Image);
 		frame.add(Start);
-		//frame.add(Stop);
 		frame.add(Reset);
 		frame.add(Scroll);
 
@@ -127,10 +117,15 @@ class View implements MVCView {
 		for (int i = 0; i < 100; i++) {
 			for (int j = 0; j < 200; j++) {
 				if (Cells[i][j].getState() != model.getState(i,j)){
+					if(model.getState(i,j)){ NCells++;}
+					if(!model.getState(i,j)){NCells--;}
 					Cells[i][j].changeState();
 				}
 			}
 		}
+		Sec++;
+		CellN.setText(""+NCells);
+		Clock.setText(""+Sec);
 	}
 
 	public void simOn(boolean status){
@@ -140,6 +135,12 @@ class View implements MVCView {
 		else{
 			Start.setText("Start");
 		}
+	}
+
+	@Override
+	public void resetSec() {
+		Sec = 0;
+		Clock.setText(""+Sec);
 	}
 
 	// Called from the Model
@@ -180,10 +181,9 @@ class View implements MVCView {
 
 	public void toggleCell(int x,int y){
 		Cells[x][y].changeState();
-	}
-
-	public void addTime(ActionListener e){
-		time.addActionListener(e);
+		if(Cells[x][y].getState()){NCells++;}
+		if(!Cells[x][y].getState()){NCells--;}
+		CellN.setText(""+NCells);
 	}
 
 	@Override
