@@ -34,7 +34,6 @@ public class RunMVC {
 		myView.addPause(myController.getPauseListener());
 		myView.addReset(myController.getResetListener());
 		myView.addCell(myController.getCellListener());
-		myView.addTime(myController.getTimeListener());
 		//and Model, 
 		//this was only needed when the view inits the model
 		//myView.addModel(myModel);

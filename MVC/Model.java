@@ -15,6 +15,7 @@ public class Model extends MVCModel {
 	// array for storing cell states
 	public boolean arr[][] = new boolean[100][200];
 	long startTime = System.currentTimeMillis();
+	public int cells = 0;
 
 	public Model(){
 
@@ -105,7 +106,6 @@ public class Model extends MVCModel {
 				}
 				else {
 					arr[row][col] = false;
-
 				}
 			}
 		}

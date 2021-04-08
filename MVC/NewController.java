@@ -9,7 +9,6 @@ public class NewController {
     private PauseListener pause;
     private ResetListener reset;
     private CellListener cell;
-    private TimerListener time;
     private Cell ce;
     private boolean simOn;
     private Timer timer;
@@ -20,7 +19,6 @@ public class NewController {
         this.pause = new PauseListener();
         this.reset = new ResetListener();
         this.cell = new CellListener();
-        this.time = new TimerListener();
         this.simOn = false;
         timer = new Timer();
     }
@@ -47,11 +45,7 @@ public class NewController {
             System.out.println("Reset");
             myModel.resetCells();
             myView.updateCells();
-        }
-    }
-    class TimerListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Time");
+            myView.resetSec();
         }
     }
 
@@ -111,8 +105,6 @@ public class NewController {
     public MouseListener getCellListener(){
         return this.cell;
     }
-
-    public ActionListener getTimeListener(){ return this.time; }
 
     public void addModel(MVCModel m){
         System.out.println("Controller: adding model");
